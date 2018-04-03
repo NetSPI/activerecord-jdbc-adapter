@@ -442,21 +442,21 @@ module ArJdbc
     end
 
     def columns_for_distinct(columns, orders)
-      return columns if orders.blank?
+     # return columns if orders.blank?
 
       # construct a clean list of column names from the ORDER BY clause,
       # removing any ASC/DESC modifiers
-      order_columns = [ orders ]; order_columns.flatten! # AR 3.x vs 4.x
-      order_columns.map! do |column|
-        column = column.to_sql unless column.is_a?(String) # handle AREL node
-        column.split(',').collect!{ |s| s.split.first }
-      end.flatten!
-      order_columns.reject!(&:blank?)
-      order_columns = order_columns.zip(0...order_columns.size).to_a
-      order_columns = order_columns.map{ |s, i| "#{s}" }
+#       order_columns = [ orders ]; order_columns.flatten! # AR 3.x vs 4.x
+#       order_columns.map! do |column|
+#         column = column.to_sql unless column.is_a?(String) # handle AREL node
+#         column.split(',').collect!{ |s| s.split.first }
+#       end.flatten!
+#       order_columns.reject!(&:blank?)
+#       order_columns = order_columns.zip(0...order_columns.size).to_a
+#       order_columns = order_columns.map{ |s, i| "#{s}" }
 
-      columns = [ columns ]; columns.flatten!
-      columns.push( *order_columns ).join(', ')
+#       columns = [ columns ]; columns.flatten!
+#       columns.push( *order_columns ).join(', ')
       # return a DISTINCT clause that's distinct on the columns we want but
       # includes all the required columns for the ORDER BY to work properly
     end
